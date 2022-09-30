@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/discoverFragment">
 
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.sultanseidov.tmdbapp.view.fragment.DiscoverFragment"
+        android:label="DiscoverFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.sultanseidov.tmdbapp.view.fragment.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/myWatchListFragment"
+        android:name="com.sultanseidov.tmdbapp.view.fragment.MyWatchListFragment"
+        android:label="MyWatchListFragment" />
 </navigation>
