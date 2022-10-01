@@ -1,4 +1,4 @@
-package com.sultanseidov.tmdbapp.model.base
+package com.sultanseidov.tmdbapp.data.entities.base
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
 

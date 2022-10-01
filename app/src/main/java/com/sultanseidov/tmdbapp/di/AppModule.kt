@@ -2,12 +2,11 @@ package com.sultanseidov.tmdbapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.google.gson.Gson
-import com.sultanseidov.tmdbapp.repository.IMovieRepository
-import com.sultanseidov.tmdbapp.repository.MovieRepository
-import com.sultanseidov.tmdbapp.repository.localds.AppDatabase
-import com.sultanseidov.tmdbapp.repository.localds.MovieDao
-import com.sultanseidov.tmdbapp.repository.remoteds.ITMDBApi
+import com.sultanseidov.tmdbapp.data.repository.IMovieRepository
+import com.sultanseidov.tmdbapp.data.repository.MovieRepository
+import com.sultanseidov.tmdbapp.data.local.AppDatabase
+import com.sultanseidov.tmdbapp.data.local.MovieDao
+import com.sultanseidov.tmdbapp.data.remote.ITMDBApi
 import com.sultanseidov.tmdbapp.util.Util.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -25,7 +24,7 @@ object AppModule {
     @Singleton
     @Provides
     fun injectRoomDatabase(@ApplicationContext context: Context)=Room.databaseBuilder(
-        context,AppDatabase::class.java,"TMDBApp")
+        context, AppDatabase::class.java,"TMDBApp")
         .build()
 
 
@@ -36,7 +35,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectRetrofitApi():ITMDBApi{
+    fun injectRetrofitApi(): ITMDBApi {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)

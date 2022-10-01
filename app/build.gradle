@@ -43,6 +43,14 @@ android {
     kapt {
         correctErrorTypes = true
     }
+
+    //for warning "This declaration needs opt-in."
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += [
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
+    }
 }
 
 dependencies {

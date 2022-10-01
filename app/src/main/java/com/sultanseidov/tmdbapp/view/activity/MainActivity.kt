@@ -19,7 +19,7 @@ import com.sultanseidov.tmdbapp.databinding.ActivityMainBinding
 import com.sultanseidov.tmdbapp.view.fragment.DiscoverFragment
 import com.sultanseidov.tmdbapp.view.fragment.MyWatchListFragment
 import com.sultanseidov.tmdbapp.view.fragment.SearchFragment
-import com.sultanseidov.tmdbapp.viewmodel.MovieViewModel
+import com.sultanseidov.tmdbapp.view.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

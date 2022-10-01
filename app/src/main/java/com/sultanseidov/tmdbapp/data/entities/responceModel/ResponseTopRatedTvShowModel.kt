@@ -1,6 +1,6 @@
-package com.sultanseidov.tmdbapp.model.responceModel
+package com.sultanseidov.tmdbapp.data.entities.responceModel
 
-import com.sultanseidov.tmdbapp.model.base.TvShowModel
+import com.sultanseidov.tmdbapp.data.entities.tvshow.TvShowModel
 
 data class ResponseTopRatedTvShowModel(
     val page: Int,

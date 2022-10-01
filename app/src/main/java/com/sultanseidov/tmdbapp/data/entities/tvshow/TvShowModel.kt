@@ -1,4 +1,4 @@
-package com.sultanseidov.tmdbapp.model.base
+package com.sultanseidov.tmdbapp.data.entities.tvshow
 
 data class TvShowModel(
     val backdrop_path: String,

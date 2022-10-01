@@ -1,16 +1,16 @@
-package com.sultanseidov.tmdbapp.viewmodel
+package com.sultanseidov.tmdbapp.view.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sultanseidov.tmdbapp.model.base.MovieModel
-import com.sultanseidov.tmdbapp.model.base.Resource
-import com.sultanseidov.tmdbapp.model.responceModel.ResponsePopularMovieModel
-import com.sultanseidov.tmdbapp.model.responceModel.ResponseTopRatedMovieModel
-import com.sultanseidov.tmdbapp.model.responceModel.ResponseUpcomingMovieModel
-import com.sultanseidov.tmdbapp.repository.IMovieRepository
-import com.sultanseidov.tmdbapp.repository.MovieRepository
+import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
+import com.sultanseidov.tmdbapp.data.entities.base.Resource
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponsePopularMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseTopRatedMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseUpcomingMovieModel
+import com.sultanseidov.tmdbapp.data.repository.IMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,10 +24,13 @@ class MovieViewModel@Inject constructor(
 
     fun deleteMovie(movie: MovieModel) = viewModelScope.launch {
         repository.deleteMovie(movie)
+        Log.i("MovieViewModel","deleteMovie "+movie.title)
+
     }
 
     fun insertMovie(movie: MovieModel) = viewModelScope.launch {
         repository.insertMovie(movie)
+        Log.i("MovieViewModel","insertMovie "+movie.title)
     }
 
     private val upcomingMovies = MutableLiveData<Resource<ResponseUpcomingMovieModel>>()

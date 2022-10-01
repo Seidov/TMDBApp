@@ -1,4 +1,4 @@
-package com.sultanseidov.tmdbapp.viewmodel
+package com.sultanseidov.tmdbapp.view.viewmodel
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory

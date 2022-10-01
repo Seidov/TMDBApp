@@ -1,8 +1,8 @@
-package com.sultanseidov.tmdbapp.repository.remoteds
+package com.sultanseidov.tmdbapp.data.remote
 
-import com.sultanseidov.tmdbapp.model.responceModel.ResponsePopularMovieModel
-import com.sultanseidov.tmdbapp.model.responceModel.ResponseTopRatedMovieModel
-import com.sultanseidov.tmdbapp.model.responceModel.ResponseUpcomingMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponsePopularMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseTopRatedMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseUpcomingMovieModel
 import com.sultanseidov.tmdbapp.util.Util.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET

@@ -1,6 +1,6 @@
-package com.sultanseidov.tmdbapp.model.responceModel
+package com.sultanseidov.tmdbapp.data.entities.responceModel
 
-import com.sultanseidov.tmdbapp.model.base.MovieModel
+import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
 
 data class ResponsePopularMovieModel(
     val page: Int,

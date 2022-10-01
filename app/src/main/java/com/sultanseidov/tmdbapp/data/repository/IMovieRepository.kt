@@ -1,11 +1,11 @@
-package com.sultanseidov.tmdbapp.repository
+package com.sultanseidov.tmdbapp.data.repository
 
 import androidx.lifecycle.LiveData
-import com.sultanseidov.tmdbapp.model.base.MovieModel
-import com.sultanseidov.tmdbapp.model.base.Resource
-import com.sultanseidov.tmdbapp.model.responceModel.ResponsePopularMovieModel
-import com.sultanseidov.tmdbapp.model.responceModel.ResponseTopRatedMovieModel
-import com.sultanseidov.tmdbapp.model.responceModel.ResponseUpcomingMovieModel
+import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
+import com.sultanseidov.tmdbapp.data.entities.base.Resource
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponsePopularMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseTopRatedMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseUpcomingMovieModel
 
 interface IMovieRepository {
 

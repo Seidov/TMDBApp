@@ -1,4 +1,4 @@
-package com.sultanseidov.tmdbapp.model.movie
+package com.sultanseidov.tmdbapp.data.entities.movie
 
 data class Dates(
     val maximum: String,

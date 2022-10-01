@@ -1,4 +1,4 @@
-package com.sultanseidov.tmdbapp.model.base
+package com.sultanseidov.tmdbapp.data.entities.movie
 
 import androidx.annotation.NonNull
 import androidx.room.Entity

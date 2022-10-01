@@ -1,4 +1,4 @@
-package com.sultanseidov.tmdbapp.repository.localds
+package com.sultanseidov.tmdbapp.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sultanseidov.tmdbapp.model.base.MovieModel
+import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
 
 @Dao
 interface MovieDao {
