@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
 import com.sultanseidov.tmdbapp.data.entities.base.Resource
-import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponsePopularMovieModel
-import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseTopRatedMovieModel
-import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseUpcomingMovieModel
+import com.sultanseidov.tmdbapp.data.entities.responceModel.*
+import com.sultanseidov.tmdbapp.data.entities.tvshow.TvShowModel
 import com.sultanseidov.tmdbapp.data.repository.IMovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,16 +20,20 @@ class MovieViewModel@Inject constructor(
 ):ViewModel() {
 
     val moviesListFromDB = repository.getMovies()
+    val tvShowsListFromDB = repository.getTvShows()
 
     fun deleteMovie(movie: MovieModel) = viewModelScope.launch {
         repository.deleteMovie(movie)
-        Log.i("MovieViewModel","deleteMovie "+movie.title)
-
     }
-
     fun insertMovie(movie: MovieModel) = viewModelScope.launch {
         repository.insertMovie(movie)
-        Log.i("MovieViewModel","insertMovie "+movie.title)
+    }
+
+    fun deleteTvShow(tvShowModel: TvShowModel) = viewModelScope.launch {
+        repository.deleteTvShow(tvShowModel)
+    }
+    fun insertTvShow(tvShowModel: TvShowModel) = viewModelScope.launch {
+        repository.insertTvShow(tvShowModel)
     }
 
     private val upcomingMovies = MutableLiveData<Resource<ResponseUpcomingMovieModel>>()
@@ -45,8 +48,13 @@ class MovieViewModel@Inject constructor(
     val popularMoviesList : LiveData<Resource<ResponsePopularMovieModel>>
         get() = popularMovies
 
+    private val topRatedTvShows = MutableLiveData<Resource<ResponseTopRatedTvShowModel>>()
+    val topRatedTvShowsList : LiveData<Resource<ResponseTopRatedTvShowModel>>
+        get() = topRatedTvShows
 
-
+    private val popularTvShows = MutableLiveData<Resource<ResponsePopularTvShowModel>>()
+    val popularTvShowsList : LiveData<Resource<ResponsePopularTvShowModel>>
+        get() = popularTvShows
 
     fun fetchUpcomingMovies() {
         upcomingMovies.value = Resource.loading(null)
@@ -70,5 +78,19 @@ class MovieViewModel@Inject constructor(
         }
     }
 
+    fun fetchTopRatedTvShows() {
+        topRatedTvShows.value = Resource.loading(null)
+        viewModelScope.launch {
+            val response = repository.getTopRatedTvShows()
+            topRatedTvShows.value = response
+        }
+    }
+    fun fetchPopularTvShows() {
+        popularTvShows.value = Resource.loading(null)
+        viewModelScope.launch {
+            val response = repository.getPopularTvShows()
+            popularTvShows.value = response
+        }
+    }
 
 }

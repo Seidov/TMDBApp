@@ -6,6 +6,7 @@ import com.sultanseidov.tmdbapp.data.repository.IMovieRepository
 import com.sultanseidov.tmdbapp.data.repository.MovieRepository
 import com.sultanseidov.tmdbapp.data.local.AppDatabase
 import com.sultanseidov.tmdbapp.data.local.MovieDao
+import com.sultanseidov.tmdbapp.data.local.TvShowDao
 import com.sultanseidov.tmdbapp.data.remote.ITMDBApi
 import com.sultanseidov.tmdbapp.util.Util.BASE_URL
 import dagger.Module
@@ -23,30 +24,33 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun injectRoomDatabase(@ApplicationContext context: Context)=Room.databaseBuilder(
-        context, AppDatabase::class.java,"TMDBApp")
-        .build()
+    fun injectRoomDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
+        context, AppDatabase::class.java, "TMDBApp"
+    ).build()
 
 
     @Singleton
     @Provides
-    fun injectDao(database: AppDatabase)=database.movieDao()
+    fun injectMovieDao(database: AppDatabase) = database.movieDao()
+
+
+    @Singleton
+    @Provides
+    fun injectTvShowDao(database: AppDatabase) = database.tvShowDao()
 
 
     @Singleton
     @Provides
     fun injectRetrofitApi(): ITMDBApi {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL)
-            .build()
-            .create(ITMDBApi::class.java)
+        return Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL).build().create(ITMDBApi::class.java)
     }
 
 
     @Singleton
     @Provides
-    fun injectNormalRepo(dao : MovieDao, api: ITMDBApi) = MovieRepository(dao,api) as IMovieRepository
+    fun injectNormalRepo(movieDao: MovieDao, tvShowDao: TvShowDao, api: ITMDBApi) =
+        MovieRepository(movieDao, tvShowDao, api) as IMovieRepository
 
 
 }

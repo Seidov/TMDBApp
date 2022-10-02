@@ -1,12 +1,17 @@
 package com.sultanseidov.tmdbapp.data.entities.tvshow
 
+import androidx.annotation.NonNull
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "shows")
 data class TvShowModel(
+    @NonNull
+    @PrimaryKey
+    val id: Int,
     val backdrop_path: String,
     val first_air_date: String,
-    val genre_ids: List<Int>,
-    val id: Int,
     val name: String,
-    val origin_country: List<String>,
     val original_language: String,
     val original_name: String,
     val overview: String,
