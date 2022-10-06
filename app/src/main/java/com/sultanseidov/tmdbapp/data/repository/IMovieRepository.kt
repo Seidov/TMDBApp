@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
 import com.sultanseidov.tmdbapp.data.entities.base.Resource
 import com.sultanseidov.tmdbapp.data.entities.responceModel.*
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseMultiSearchModel
 import com.sultanseidov.tmdbapp.data.entities.tvshow.TvShowModel
 
 interface IMovieRepository {
@@ -29,4 +30,7 @@ interface IMovieRepository {
     suspend fun getTopRatedTvShows(): Resource<ResponseTopRatedTvShowModel>
 
     suspend fun getPopularTvShows(): Resource<ResponsePopularTvShowModel>
+
+    suspend fun getMultiSearch(query:String): Resource<ResponseMultiSearchModel>
+
 }

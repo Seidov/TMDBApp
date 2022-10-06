@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
 import com.sultanseidov.tmdbapp.data.entities.base.Resource
 import com.sultanseidov.tmdbapp.data.entities.responceModel.*
+import com.sultanseidov.tmdbapp.data.entities.responceModel.ResponseMultiSearchModel
 import com.sultanseidov.tmdbapp.data.entities.tvshow.TvShowModel
 import com.sultanseidov.tmdbapp.data.local.MovieDao
 import com.sultanseidov.tmdbapp.data.local.TvShowDao
@@ -103,6 +104,21 @@ class MovieRepository @Inject constructor(
     override suspend fun getPopularTvShows(): Resource<ResponsePopularTvShowModel> {
         return try {
             val response = retrofitApi.getPopularTvShows()
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    return@let Resource.success(it)
+                } ?: Resource.error("Error", null)
+            } else {
+                Resource.error("Error", null)
+            }
+        } catch (e: Exception) {
+            Resource.error("No Data!", null)
+        }
+    }
+
+    override suspend fun getMultiSearch(query:String): Resource<ResponseMultiSearchModel> {
+        return try {
+            val response = retrofitApi.getMultiSearch(query)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.success(it)

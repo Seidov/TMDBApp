@@ -7,13 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.sultanseidov.tmdbapp.R
 import com.sultanseidov.tmdbapp.data.entities.base.Status
+import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
 import com.sultanseidov.tmdbapp.databinding.FragmentDiscoverBinding
 import com.sultanseidov.tmdbapp.view.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.sultanseidov.tmdbapp.data.entities.multisearch.Result
+import com.sultanseidov.tmdbapp.data.entities.tvshow.TvShowModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -54,11 +56,26 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             }
         }
 
-        viewModel.fetchTopRatedTvShows()
-        viewModel.fetchPopularTvShows()
+        //viewModel.fetchTopRatedTvShows()
+        //viewModel.fetchPopularTvShows()
         //viewModel.fetchUpcomingMovies()
         //viewModel.fetchPopularMovies()
         //viewModel.fetchTopRatedMovies()
+
+
+        //result m0 t0
+        viewModel.fetchMultiSearch("murataaa")
+
+        //result m0 t1
+        viewModel.fetchMultiSearch("Archive 81")
+
+        //result m2 t0
+        viewModel.fetchMultiSearch("In the Realm of the Senses")
+
+        //result m18 t1
+        viewModel.fetchMultiSearch("the lord of the rings")
+
+
 
         subscribeToObservers()
 
@@ -173,6 +190,27 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 }
             }
         }
+
+        viewModel.multiSearchResultList.observe(viewLifecycleOwner) { result ->
+            when (result.status) {
+                Status.SUCCESS -> {
+                    result.data?.let {
+                        Log.e("viewModel.multiSearchResultList", "SUCCESS")
+                    }
+                }
+
+                Status.ERROR -> {
+                    result.message?.let {
+                        Log.e("viewModel.topRatedTvShowsList", "ERROR")
+                    }
+                }
+
+                Status.LOADING -> {
+                    Log.e("viewModel.topRatedTvShowsList", "LOADING")
+                }
+            }
+        }
+
     }
 
 }
