@@ -5,8 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sultanseidov.tmdbapp.R
 import com.sultanseidov.tmdbapp.data.entities.base.Status
 import com.sultanseidov.tmdbapp.data.entities.movie.MovieModel
@@ -16,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import com.sultanseidov.tmdbapp.data.entities.multisearch.Result
 import com.sultanseidov.tmdbapp.data.entities.tvshow.TvShowModel
+import com.sultanseidov.tmdbapp.view.adapter.UpcomingListAdapter
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -25,6 +30,10 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MovieViewModel>()
+
+    @Inject
+    lateinit var adapter: UpcomingListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +46,8 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initUpcomingMoviesRecyclerview()
 
         binding.txvDelete.setOnClickListener {
             viewModel.tvShowsListFromDB.observe(viewLifecycleOwner) { tvShowList ->
@@ -55,30 +66,45 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 }
             }
         }
-
-        //viewModel.fetchTopRatedTvShows()
-        //viewModel.fetchPopularTvShows()
-        //viewModel.fetchUpcomingMovies()
-        //viewModel.fetchPopularMovies()
-        //viewModel.fetchTopRatedMovies()
-
-
-        //result m0 t0
-        viewModel.fetchMultiSearch("murataaa")
-
-        //result m0 t1
-        viewModel.fetchMultiSearch("Archive 81")
-
-        //result m2 t0
-        viewModel.fetchMultiSearch("In the Realm of the Senses")
-
-        //result m18 t1
-        viewModel.fetchMultiSearch("the lord of the rings")
+        /*
+               viewModel.fetchTopRatedTvShows()
+               viewModel.fetchPopularTvShows()
+               viewModel.fetchUpcomingMovies()
+               viewModel.fetchPopularMovies()
+               viewModel.fetchTopRatedMovies()
 
 
+               //result m0 t0
+               viewModel.fetchMultiSearch("murataaa")
+
+               //result m0 t1
+               viewModel.fetchMultiSearch("Archive 81")
+
+               //result m2 t0
+               viewModel.fetchMultiSearch("In the Realm of the Senses")
+
+               //result m18 t1
+               viewModel.fetchMultiSearch("the lord of the rings")
+
+                */
+
+
+
+        viewModel.fetchUpcomingMovies()
+
+
+        adapter.setOnItemClickListener {
+            Toast.makeText(requireContext(), "position: " + it, Toast.LENGTH_SHORT).show()
+        }
 
         subscribeToObservers()
 
+    }
+
+    private fun initUpcomingMoviesRecyclerview() {
+        binding.upcomingMoviesRecyclerView.adapter = adapter
+        binding.upcomingMoviesRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onDestroyView() {
@@ -90,9 +116,11 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         viewModel.upcomingMoviesList.observe(viewLifecycleOwner) { result ->
             when (result.status) {
                 Status.SUCCESS -> {
-                    result.data?.results?.let {
+                    result.data?.results?.let { list ->
                         Log.e("viewModel.upcomingMoviesList", "SUCCESS")
-                        viewModel.insertMovie(it[0])
+                        //viewModel.insertMovie(it[0])
+                        adapter.upcomingMovie = list
+
                     }
                 }
 
@@ -155,7 +183,8 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                         Log.e("viewModel.popularTvShowsList", "SUCCESS")
 
                         if (!list.isNullOrEmpty()) {
-                            viewModel.insertTvShow(list[0])
+                            //viewModel.insertTvShow(list[0])
+
                         }
                     }
                 }

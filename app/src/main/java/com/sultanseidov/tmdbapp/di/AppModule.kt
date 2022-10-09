@@ -2,6 +2,9 @@ package com.sultanseidov.tmdbapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.sultanseidov.tmdbapp.R
 import com.sultanseidov.tmdbapp.data.repository.IMovieRepository
 import com.sultanseidov.tmdbapp.data.repository.MovieRepository
 import com.sultanseidov.tmdbapp.data.local.AppDatabase
@@ -52,5 +55,13 @@ object AppModule {
     fun injectNormalRepo(movieDao: MovieDao, tvShowDao: TvShowDao, api: ITMDBApi) =
         MovieRepository(movieDao, tvShowDao, api) as IMovieRepository
 
+
+    @Singleton
+    @Provides
+    fun injectGlide(@ApplicationContext context: Context) = Glide
+        .with(context).setDefaultRequestOptions(
+            RequestOptions().placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+        )
 
 }
